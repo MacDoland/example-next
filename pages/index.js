@@ -2,7 +2,17 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
-export default function Home() {
+// This gets called on every request
+export async function getServerSideProps() {
+  // Fetch data from external API
+  //const res = await fetch(`./hello`)
+  const data = { name: "Joe "};
+
+  // Pass data to the page via props
+  return { props: { data } }
+}
+
+export default function Home( { data }) {
   return (
     <div className={styles.container}>
       <Head>
@@ -13,7 +23,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Welcome to <a href="https://nextjs.org">Next.js!</a> {data.name}
         </h1>
 
         <p className={styles.description}>
